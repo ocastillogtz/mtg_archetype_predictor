@@ -1,6 +1,6 @@
 import bcrypt
 import psycopg2
-from app.db.db_utils import get_db_connection  # adjust according to your db_utils interface
+from app.db.db_utils import get_db_connection
 
 def create_users_table(conn):
     """
