@@ -1,5 +1,6 @@
 import bcrypt
 import psycopg2
+import logging
 from app.db.db_utils import get_db_connection
 
 def create_users_table(conn):
@@ -22,7 +23,7 @@ def create_users_table(conn):
         with conn.cursor() as cur:
             cur.execute(create_table_query)
             conn.commit()
-
+            logging.info("Succesfully created the user table")
     except psycopg2.Error as e:
         print(f"Database error creating table: {e}")
         conn.rollback()

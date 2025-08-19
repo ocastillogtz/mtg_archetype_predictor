@@ -68,7 +68,7 @@ class MagicCard:
     mtg_arena_id: int
     name: str
     color: List[str]
-    mana_cost: List[str]
+    mana_cost: str
     card_type: List[str]
     subtypes: List[str]
     super_types: List[str]

@@ -110,13 +110,8 @@ def vectorize_card_data(cards,config):
 
     for card,vector in zip(cards,input_card_vector_list):
         card.update_vectors(vector,output_vector)
-        if card.name in ["Bygone Colossus","Granite Witness","Godless Shrine","Ajani, Caller of the Pride","Angelic Destiny","Awaken the Honored Dead","Annie Flash, the Veteran","Bestow Greatness","Bone-Cairn Butcher","Call the Spirit Dragons","Cavernous Maw"]:
-            print(card)
-            print(vector)
-            print(card.vector_input)
 
-
-    return card_vector_list
+    return cards
 
 
 def get_card_vector(card,local_id,g_non_categorical_values_labels,g_color_labels,g_cardtypes_labels,g_supertypes_labels,g_subtypes_labels,g_word_labels):

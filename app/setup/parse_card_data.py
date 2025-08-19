@@ -34,14 +34,14 @@ def retrieve_source_json_data(file_path):
                         name=card_found.get("name",""),
                         color=card_found.get("colors",[]),
                         converted_mana_cost=int(card_found.get("cost",0)),
-                        mana_cost=card_found.get("manaCost",""),
+                        mana_cost=normalize_curly_braces(card_found.get("manaCost","")),
                         card_type=card_found.get("types",[]),
-                        power=card_found.get("power",0),
-                        toughness=card_found.get("toughness", 0),
+                        power=ensure_int(card_found.get("power",0)),
+                        toughness=ensure_int(card_found.get("toughness", 0)),
                         card_text=card_found.get("originalText",""),
                         subtypes=card_found.get("subtypes",[]),
-                        mcm_meta_id=card_found.get("mcm_meta_id",""),
-                        mtg_arena_id=card_found.get("identifiers", {}).get("mtgArenaId", ""),
+                        mcm_meta_id=card_found.get("mcm_meta_id",0),
+                        mtg_arena_id=card_found.get("identifiers", {}).get("mtgArenaId", 0),
                         super_types=card_found.get("supertypes", []),
                         tcg_player_link= card_found.get("links", {}).get("tcgplayer", ""),
                         card_market_link=card_found.get("links", {}).get("cardmarket", "")
@@ -50,9 +50,6 @@ def retrieve_source_json_data(file_path):
                     if not new_card.card_text:
                         new_card.card_text=str(card_found.get("text",""))
 
-                    if current_mcm_meta_id == "7761":
-                        print(new_card)
-                        print(card_found)
                     card_data.append(new_card)
                     mcm_meta_ids_found_list.append(current_mcm_meta_id)
 
@@ -65,6 +62,34 @@ def retrieve_source_json_data(file_path):
     logging.debug(f"In the file {file_path} we found " + str(number_of_cards_found) + " cards.")
 
     return card_data
+
+def ensure_int(value) -> int:
+    """
+    Converts value to int if possible; returns 0 if conversion fails.
+
+    Args:
+        value: Any type.
+
+    Returns:
+        int: The integer value or 0 if not an integer.
+    """
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
+def normalize_curly_braces(value: str) -> str:
+    """
+    Removes '{' and '}' from a string. Returns empty string if input is None or empty.
+
+    Args:
+        value (str): The string to normalize.
+
+    Returns:
+        str: Cleaned string without curly braces.
+    """
+    if not value:
+        return ""
+    return value.replace("{", "").replace("}", "")
 
 def test_parse_data_from_source():
     config = configparser.ConfigParser()
