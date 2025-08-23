@@ -16,6 +16,7 @@ def create_cards_table(conn):
         name TEXT NOT NULL,
         color TEXT[],
         mana_cost TEXT,
+        converted_mana_cost INTEGER,
         card_type TEXT[],
         subtypes TEXT[],
         super_types TEXT[],
@@ -54,11 +55,11 @@ def insert_magic_card(card):
 
         query = """
         INSERT INTO cards (
-            id, mtg_arena_id, name, color, mana_cost, card_type, subtypes, super_types,
+            id, mtg_arena_id, name, color, mana_cost, converted_mana_cost, card_type, subtypes, super_types,
             card_text, power, toughness, mcm_meta_id, card_market_link, tcg_player_link,
             predicted_archetypes, annotated_archetypes, gold_standard_archetypes,
             display_html, magic_card_object
-        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ON CONFLICT (id) DO NOTHING;
         """
 
@@ -68,6 +69,7 @@ def insert_magic_card(card):
             card.name,
             card.color,
             card.mana_cost,
+            card.converted_mana_cost,
             card.card_type,
             card.subtypes,
             card.super_types,
@@ -123,6 +125,7 @@ def insert_magic_cards_bulk(config, cards):
                     card.name,
                     card.color,
                     card.mana_cost,
+                    card.converted_mana_cost,
                     card.card_type,
                     card.subtypes,
                     card.super_types,
@@ -141,7 +144,7 @@ def insert_magic_cards_bulk(config, cards):
 
             insert_sql = """
             INSERT INTO cards (
-                id, mtg_arena_id, name, color, mana_cost, card_type, subtypes, super_types,
+                id, mtg_arena_id, name, color, mana_cost, converted_mana_cost, card_type, subtypes, super_types,
                 card_text, power, toughness, mcm_meta_id, card_market_link, tcg_player_link,
                 predicted_archetypes, annotated_archetypes, gold_standard_archetypes,
                 display_html, magic_card_object
@@ -179,7 +182,7 @@ def get_magic_card(card_id):
         return None
     except Exception as e:
         logging.error(f"Failed to retrieve card {card_id}: {e}")
-        raise
+        return "<div><p>Query Failed</p></div>"
 
 # =============================
 # Search cards by name (partial match)
@@ -188,7 +191,7 @@ def get_magic_card(card_id):
 def search_cards_by_name(partial_name):
     try:
         query = """
-        SELECT id, mtg_arena_id, name, color, mana_cost, card_type, subtypes, super_types,
+        SELECT id, mtg_arena_id, name, color, mana_cost, converted_mana_cost, card_type, subtypes, super_types,
                card_text, power, toughness, mcm_meta_id, card_market_link, tcg_player_link,
                predicted_archetypes, annotated_archetypes, gold_standard_archetypes
         FROM cards
@@ -203,18 +206,19 @@ def search_cards_by_name(partial_name):
                 "name": row[2],
                 "color": row[3],
                 "mana_cost": row[4],
-                "card_type": row[5],
-                "subtypes": row[6],
-                "super_types": row[7],
-                "card_text": row[8],
-                "power": row[9],
-                "toughness": row[10],
-                "mcm_meta_id": row[11],
-                "card_market_link": row[12],
-                "tcg_player_link": row[13],
-                "predicted_archetypes": row[14],
-                "annotated_archetypes": row[15],
-                "gold_standard_archetypes": row[16]
+                "converted_mana_cost": row[5],
+                "card_type": row[6],
+                "subtypes": row[7],
+                "super_types": row[8],
+                "card_text": row[9],
+                "power": row[10],
+                "toughness": row[11],
+                "mcm_meta_id": row[12],
+                "card_market_link": row[13],
+                "tcg_player_link": row[14],
+                "predicted_archetypes": row[15],
+                "annotated_archetypes": row[16],
+                "gold_standard_archetypes": row[17]
             })
         return result
     except Exception as e:
@@ -233,6 +237,7 @@ def update_magic_card(card):
             name = %s,
             color = %s,
             mana_cost = %s,
+            converted_mana_cost = %s,
             card_type = %s,
             subtypes = %s,
             super_types = %s,
@@ -254,6 +259,7 @@ def update_magic_card(card):
             card.name,
             card.color,
             card.mana_cost,
+            card.converted_mana_cost,
             card.card_type,
             card.subtypes,
             card.super_types,

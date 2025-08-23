@@ -1,43 +1,22 @@
 
 MANA_COST_MAPPING = {
-    "{W}":"&#127774;",
-    "{B}":"&#128128;",
-    "{R}":"&#128293;",
-    "{G}":"&#127795;",
+    "W":"&#127774;",
+    "B":"&#128128;",
+    "R":"&#128293;",
+    "G":"&#127795;",
     # U means Blue
-    "{U}":"&#128167;",
-    "{C}":"&#128280;",
-    "{1}":"&#x0031;",
-    "{2}":"&#x0032;",
-    "{3}":"&#51;",
-    "{4}":"&#52;",
-    "{5}":"&#53;",
-    "{6}":"&#54;",
-    "{7}":"&#55;",
-    "{8}":"&#56;",
-    "{9}":"&#57;",
-    "{10}":"&#128287;",
-    "{X}":"&#42;",
-    "{11}":"&#127385;",
-    "{12}":"&#127385;",
-    "{13}":"&#127385;",
-    "{14}":"&#127385;",
-    "{15}":"&#127385;",
-    "{16}":"&#127385;",
-    "{17}":"&#127385;",
-    "{18}":"&#127385;",
-    "{19}":"&#127385;",
-    "{20}":"&#127385;",
-    "{W/U}":"&#128302;",
-    "{W/B}": "&#128302;",
-    "{B/R}": "&#128302;",
-    "{B/G}": "&#128302;",
-    "{U/B}": "&#128302;",
-    "{U/R}": "&#128302;",
-    "{R/G}": "&#128302;",
-    "{R/W}": "&#128302;",
-    "{G/W}": "&#128302;",
-    "{G/U}": "&#128302;",
+    "U":"&#128167;",
+    "C":"&#128280;",
+    "1":"&#x0031;",
+    "2":"&#x0032;",
+    "3":"&#51;",
+    "4":"&#52;",
+    "5":"&#53;",
+    "6":"&#54;",
+    "7":"&#55;",
+    "8":"&#56;",
+    "9":"&#57;",
+    "X":"&#42;",
     "unknown": "&#10068;"
 
 }
@@ -138,20 +117,14 @@ def get_display_card_type_or_subtype(entry):
     else:
         return ""
 def get_display_mana_cost(entry):
-    display_card_type = ""
     if not entry:
         return ""
-
     else:
-    # Find all occurrences of {something}
-        matches = re.findall(r'\{.*?}', entry)
-        for match in matches:
-            if match.strip() in MANA_COST_MAPPING:
-                display_card_type = display_card_type + MANA_COST_MAPPING[match]
-            else:
-                display_card_type = display_card_type + MANA_COST_MAPPING["unknown"]
-        return display_card_type
+        display_mana_cost = ""
+        for character in entry:
+            display_mana_cost = display_mana_cost + MANA_COST_MAPPING[character]
 
+        return display_mana_cost
 
 """
 Card example

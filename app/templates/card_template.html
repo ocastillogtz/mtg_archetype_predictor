@@ -1,60 +1,81 @@
 
-  <div class="card_body" style="background-color: #2e2e2e;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Sans-Serif', serif;">
-<div class="card" style="width: 300px;
-      height: 450px;
-      background: linear-gradient({{ card.display_color }}, #F0F0F044);
-      border: 2px solid #aaa;
-      border-radius: 10px;
-      color: #020205;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;">
-     <div class="mana-cost" style="text-align: right;
-      font-size: 1rem;
-      font-weight: bold;
-      margin-bottom: 8px;">{{ card.display_mana_cost }}</div>
-      <div class="card-name" style="font-size: 1.2rem;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 8px;">{{ card.name}} </div>
-      <div class="image-box" style="background-color: #555;
-      height: 150px;
-      border: 1px solid #999;
-      border-radius: 5px;
-      margin-bottom: 10px;"></div>
-      <div class="card-info" style="font-size: 0.9rem;
-      margin-bottom: 8px;">
-          {{card.display_card_type}}
-            {% if card.display_card_subtype %}
-          &#x2013;
-          {% endif %}
-          {{card.display_card_subtype}}
-      </div>
-      <div class="card-text" style="background-color: rgba(255, 255, 255, 0.2);
-      color: #f0f0f0;
-      flex-grow: 1;
-      padding: 8px;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      overflow-y: auto;
-      margin-bottom: 8px;">
-        {{card_text}}
-      </div>
-      <div class="power-toughness" style="text-align: right;
-      font-weight: bold;
-      font-size: 0.9rem;">
-              {% if card.power and card.toughness %}
-                    {{ card.power }} / {{ card.toughness }}
-                {% endif %}
+<div style="padding: 80px; background-color: #4e4e4e;">
+<div class="card_body" style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: 'Sans-Serif', serif;
+">
+    <div class="card" style="
+        width: 360px;
+        height: 540px;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient({{ card.display_color }}, #F0F0F044);
+        border: 10px solid #272727;
+        border-radius: 10px;
+              padding: 10px;
 
-      </div>
+        color: #020205;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+
+        box-sizing: border-box;
+    ">
+        <div class="mana-cost" style="
+            text-align: right;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        ">{{ card.display_mana_cost | safe }}</div>
+
+        <div class="card-name" style="
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+        ">{{ card.name }}</div>
+
+        <div class="image-box" style="
+            background-color: #515151;
+            height: 180px;
+            border: 1px solid #9c9c9c;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        "></div>
+
+        <div class="card-info" style="
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        ">
+            {{ card.display_card_type }}
+            {% if card.display_card_subtype %}
+                &#x2013; {{ card.display_card_subtype }}
+            {% endif %}
+        </div>
+
+        <div class="card-text" style="
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #1a1a1a;
+            flex-grow: 1;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            overflow-y: auto;
+            margin-bottom: 8px;
+        ">
+            {{ card.card_text }}
+        </div>
+
+        <div class="power-toughness" style="
+            text-align: right;
+            font-weight: bold;
+            font-size: 0.9rem;
+        ">
+            {% if card.power and card.toughness %}
+                {{ card.power }} / {{ card.toughness }}
+            {% endif %}
+        </div>
     </div>
-    </div>
+</div>
+</div>

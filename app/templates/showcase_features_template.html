@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap Cards in Pairs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container my-4">
+    <div class="row">
+        {% for i in range(0, cards|length, 2) %}
+            <div class="col-12 mb-4">
+                <div class="row">
+                    <!-- First card -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <img src="{{ url_for('static', filename=cards[i].image) }}" class="card-img-top" alt="{{ cards[i].title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ cards[i].title }}</h5>
+                                <p class="card-text">{{ cards[i].description }}</p>
+                                {% if cards[i].link %}
+                                    <a href="{{ cards[i].link }}" class="btn btn-primary">Learn More</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second card (only if exists) -->
+                    {% if i + 1 < cards|length %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <img src="{{ url_for('static', filename=cards[i+1].image) }}" class="card-img-top" alt="{{ cards[i+1].title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ cards[i+1].title }}</h5>
+                                <p class="card-text">{{ cards[i+1].description }}</p>
+                                {% if cards[i+1].link %}
+                                    <a href="{{ cards[i+1].link }}" class="btn btn-primary">Learn More</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

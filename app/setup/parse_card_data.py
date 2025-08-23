@@ -28,17 +28,20 @@ def retrieve_source_json_data(file_path):
                 current_mcm_meta_id = card_found.get("identifiers", {}).get("mcmMetaId", "")
                 if not current_mcm_meta_id:
                     continue
+                card_text = card_found.get("originalText","")
+                if not card_text:
+                    card_text = str(card_found.get("text",""))
                 if current_mcm_meta_id not in mcm_meta_ids_found_list:
                     new_card = MagicCard.create(
                         id=current_mcm_meta_id,
                         name=card_found.get("name",""),
                         color=card_found.get("colors",[]),
-                        converted_mana_cost=int(card_found.get("cost",0)),
+                        converted_mana_cost=int(card_found.get("convertedManaCost",0)),
                         mana_cost=normalize_curly_braces(card_found.get("manaCost","")),
                         card_type=card_found.get("types",[]),
                         power=ensure_int(card_found.get("power",0)),
                         toughness=ensure_int(card_found.get("toughness", 0)),
-                        card_text=card_found.get("originalText",""),
+                        card_text=card_text,
                         subtypes=card_found.get("subtypes",[]),
                         mcm_meta_id=card_found.get("mcm_meta_id",0),
                         mtg_arena_id=card_found.get("identifiers", {}).get("mtgArenaId", 0),
@@ -47,19 +50,15 @@ def retrieve_source_json_data(file_path):
                         card_market_link=card_found.get("links", {}).get("cardmarket", "")
                         )
 
-                    if not new_card.card_text:
-                        new_card.card_text=str(card_found.get("text",""))
-
                     card_data.append(new_card)
                     mcm_meta_ids_found_list.append(current_mcm_meta_id)
-
 
             except Exception as e:
                 logging.warning("An error happened while trying to parse the source data, we couldn't parse the following entry:\n" + str(
                         card_found) + "\n" + "Receives the following error message:\n" + str(e))
 
     number_of_cards_found = len(card_data)
-    logging.debug(f"In the file {file_path} we found " + str(number_of_cards_found) + " cards.")
+    logging.info(f"In the file {file_path} we found " + str(number_of_cards_found) + " cards.")
 
     return card_data
 

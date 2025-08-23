@@ -54,6 +54,6 @@ def create_app():
                 app.config['DB_POOL'].putconn(db_conn)
 
     # Register routes
-    register_routes(app)
+    register_routes(app,config)
 
     return app

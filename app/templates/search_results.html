@@ -1,0 +1,35 @@
+
+{{data_consultation_form|safe}}
+
+<div class="container mt-4">
+    <table id="cards-table" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Mana Cost</th>
+                <th>Card Type</th>
+                <th>Power</th>
+                <th>Toughness</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for card in results %}
+            <tr>
+                <td><a href="/annotate/{{card.id}}">{{ card.name }}</a></td>
+                <td>{% for c in card.color %}{{ color_emojis[c] }} {% endfor %}</td>
+                <td>{{ card.mana_cost }}</td>
+                <td>{{ card.card_type }}</td>
+                <td>{{ card.power }}</td>
+                <td>{{ card.toughness }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#cards-table').DataTable();
+});
+</script>

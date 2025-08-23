@@ -1,6 +1,7 @@
 import bcrypt
 import psycopg2
 import logging
+import configparser
 from app.db.db_utils import get_db_connection
 
 def create_users_table(conn):
@@ -31,20 +32,33 @@ def create_users_table(conn):
 
 
 
-def create_user(conn, username, raw_password, admin=False):
+def create_user(config, username, raw_password, admin=False):
     """
     Inserts a new user into the users table with a unique salt and returns the user ID.
     """
+    conn = None
     try:
-        salt = bcrypt.gensalt()
-        hashed_password = bcrypt.hashpw(raw_password.encode('utf-8'), salt)
+        dbname = config["postgresql"]["database"]
+        host = config["postgresql"]["host"]
+        port = config["postgresql"]["port"]
+        user = config["database_user"]["user"]
+        password = config["database_user"]["password"]
+        conn = psycopg2.connect(dbname=dbname,
+                                user=user,
+                                password=password,
+                                host=host,
+                                port=port)
 
-        insert_query = """
-            INSERT INTO users (username, hashed_password, salt, admin)
-            VALUES (%s, %s, %s, %s)
-            RETURNING id;
-        """
         with conn.cursor() as cursor:
+            salt = bcrypt.gensalt()
+            hashed_password = bcrypt.hashpw(raw_password.encode('utf-8'), salt)
+
+            insert_query = """
+                INSERT INTO users (username, hashed_password, salt, admin)
+                VALUES (%s, %s, %s, %s)
+                RETURNING id;
+            """
+
             cursor.execute(insert_query, (
                 username,
                 hashed_password.decode('utf-8'),
@@ -53,14 +67,15 @@ def create_user(conn, username, raw_password, admin=False):
             ))
             user_id = cursor.fetchone()[0]
             conn.commit()
-            return user_id
+
+        conn.close()
+        return user_id
+
     except psycopg2.Error as e:
         print(f"Database error: {e}")
         conn.rollback()
         return None
-    except Exception as e:
-        print(f"Error: {e}")
-        return None
+
 
 
 def authenticate_user(conn, username, raw_password):
@@ -117,3 +132,13 @@ def disable_user(conn, user_id):
         print(f"Database error disabling user: {e}")
         conn.rollback()
         return False
+
+def test_create_user():
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
+    config = configparser.ConfigParser()
+    config.read("C:\\Users\omar_\Documents\github\mtg_archetype_predictor\mtg_archetype_predictor\\test_config.ini")
+    create_user(config, "oms", "anitalavalatina13", admin=True)
+
+if __name__ == "__main__":
+    test_create_user()

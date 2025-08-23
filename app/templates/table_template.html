@@ -1,0 +1,20 @@
+  <div class="container" style="overflow-y: scroll;">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          {% for header in table_headers %}
+            <th>{{ header }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in table_data %}
+          <tr>
+            {% for cell in row %}
+              <td>{{ cell | safe }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>

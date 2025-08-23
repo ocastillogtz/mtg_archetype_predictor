@@ -1,0 +1,365 @@
+<div class="row">
+    <!-- Left Column -->
+    <div class="col-8 d-flex flex-column">
+        <div id="left-content">
+            {{ card_display | safe}}
+        </div>
+    </div>
+
+
+    <div class="col-4 d-flex flex-column" style="padding: 20px">
+        <form id="submitCardsForm" method="POST">
+        <div style="padding: 20px; font-family: Arial, sans-serif;">
+            <h2 style="margin-bottom: 10px;">Choose Archetypes</h2>
+
+            <!-- Main Categories -->
+            <div>
+                <label title="Aggro: Fast decks focused on quick damage."><input type="checkbox" name="aggro"
+                                                                                  value="output_archetype_Aggro" {{archetype_data["output_archetype_Aggro"]}}>
+                    Aggro</label><br>
+                <label title="Control: Slows the game down with counters and removal."><input type="checkbox"
+                                                                                              name="control"
+                                                                                               value="output_archetype_Control" {{archetype_data["output_archetype_Control"]}}>
+                    Control</label><br>
+                <label title="Combo: Wins by assembling specific card combinations."><input type="checkbox"
+                                                                                            name="combo"
+                                                                                             value="output_archetype_Combo" {{archetype_data["output_archetype_Combo"]}}>
+
+                    Combo</label>
+            </div>
+
+            <hr style="margin: 20px 0;">
+
+            <!-- Expandable Groups -->
+            <div>
+                <!-- Tribal -->
+                <div style="margin-bottom: 15px;">
+                    <button type="button" onclick="toggleSection('tribal-section')"
+                            style="width:100%; text-align:left; padding:10px; background:#f2f2f2; border:1px solid #ccc; cursor:pointer; font-size:16px;">
+                        ▶ Tribal
+                    </button>
+                    <div id="tribal-section" style="display:none; padding:10px 15px;">
+                        <label title="Elves: Focus on ramping mana and big creatures."><input type="checkbox"
+                                                                                              name="elves"
+                                                                                              value="output_archetype_Elves" {{archetype_data["output_archetype_Elves"]}}>
+
+                            Elves</label><br>
+                        <label title="Goblins: Small creatures with explosive speed."><input type="checkbox"
+                                                                                             name="goblin"
+                                                                                             value="output_archetype_Goblins" {{archetype_data["output_archetype_Goblins"]}}>
+                            Goblins</label><br>
+                        <label title="Merfolk: Blue tribal synergy with islandwalk and tempo."><input type="checkbox"
+                                                                                                      name="merfolk"
+                                                                                                      value="output_archetype_Merfolk" {{archetype_data["output_archetype_Merfolk"]}}>
+
+                            Merfolk</label><br>
+                        <label title="Zombies: Recursion and graveyard synergy."><input type="checkbox"
+                                                                                        name="zomb"
+                                                                                      value="output_archetype_Zombies" {{archetype_data["output_archetype_Zombies"]}}>
+
+                            Zombies</label><br>
+                        <label title="Vampires: Aggressive creatures with lifegain and sacrifice."><input
+                                type="checkbox" name="archetypes" value="output_archetype_Vampires" {{archetype_data["output_archetype_Vampires"]}}>
+
+                            Vampires</label><br>
+                        <label title="Soldiers: White tribal with lots of tokens."><input type="checkbox"
+                                                                                          name="sold"
+                                                                                         value="output_archetype_Soldiers" {{archetype_data["output_archetype_Soldiers"]}}>
+
+                            Soldiers</label><br>
+                        <label title="Knights: Strong midrange tribal in white/black."><input type="checkbox"
+                                                                                              name="knights"
+                                                                                               value="output_archetype_Knights" {{archetype_data["output_archetype_Knights"]}}>
+
+                            Knights</label><br>
+                        <label title="Slivers: Creatures that share abilities with each other."><input type="checkbox"
+                                                                                                       name="sliver"
+                                                                                                       value="output_archetype_Slivers" {{archetype_data["output_archetype_Slivers"]}}>
+
+                            Slivers</label>
+                    </div>
+                </div>
+
+                <!-- Keyword Abilities -->
+                <div style="margin-bottom: 15px;">
+                    <button type="button" onclick="toggleSection('keywords-section')"
+                            style="width:100%; text-align:left; padding:10px; background:#f2f2f2; border:1px solid #ccc; cursor:pointer; font-size:16px;">
+                        ▶ Keyword Abilities
+                    </button>
+                    <div id="keywords-section" style="display:none; padding:10px 15px;">
+                        <label title="Hexproof: Can't be targeted by opponent's spells."><input type="checkbox"
+                                                                                                name="hexp"
+                                                                                                value="output_archetype_Hexproof" {{archetype_data["output_archetype_Hexproof"]}}>
+
+                            Hexproof</label><br>
+                        <label title="Indestructible: Can't be destroyed by damage or effects."><input type="checkbox"
+                                                                                                       name="archetypes"
+                                                                                                       value="output_archetype_Indestructible" {{archetype_data["output_archetype_Indestructible"]}}>
+
+                            Indestructible</label><br>
+                        <label title="Unblockable: Creatures can't be blocked in combat."><input type="checkbox"
+                                                                                                 name="unblock"
+                                                                                                 value="output_archetype_Unblockable" {{archetype_data["output_archetype_Unblockable"]}}>
+
+                            Unblockable</label><br>
+                        <label title="Persist: Returns from graveyard with -1/-1 counter."><input type="checkbox"
+                                                                                                  name="persi"
+                                                                                                   value="output_archetype_Persist" {{archetype_data["output_archetype_Persist"]}}>
+
+                            Persist</label><br>
+                        <label title="Undying: Returns from graveyard with +1/+1 counter."><input type="checkbox"
+                                                                                                  name="undy"
+                                                                                                  value="output_archetype_Undying" {{archetype_data["output_archetype_Undying"]}}>
+
+                            Undying</label><br>
+                        <label title="Convoke: Creatures can help cast spells."><input type="checkbox"
+                                                                                       name="convok"
+                                                                                      value="output_archetype_Convoke" {{archetype_data["output_archetype_Convoke"]}}>
+
+                            Convoke</label><br>
+                        <label title="Storm: Spells get stronger for each cast before them."><input
+                                type="checkbox" name="storm"  value="output_archetype_Storm" {{archetype_data["output_archetype_Storm"]}}>
+
+                            Storm</label><br>
+                        <label title="Dredge: Replace draws with returning cards from graveyard."><input
+                                type="checkbox" name="dredge"  value="output_archetype_Dredge" {{archetype_data["output_archetype_Dredge"]}}>
+
+                            Dredge</label><br>
+                        <label title="Affinity: Cost reduction based on artifacts."><input type="checkbox"
+                                                                                           name="affinity"
+                                                                                           value="output_archetype_Affinity" {{archetype_data["output_archetype_Affinity"]}}>
+
+                            Affinity</label><br>
+
+                        <label title="Populate: Creates copies of creature tokens."><input type="checkbox"
+                                                                                           name="popu"
+                                                                                           value="output_archetype_Populate" {{archetype_data["output_archetype_Populate"]}}>
+
+                            Populate</label><br>
+                        <label title="Flashback: Cast spells again from the graveyard."><input
+                            type="checkbox"
+                            name="graveyard"
+                            value="output_archetype_Flashback" {{archetype_data["output_archetype_Flashback"]}}>
+
+                        Flashback</label><br>
+                        <label title="Madness: Cast cards cheaper when discarded."><input type="checkbox"
+                                                                                          name="madness"
+                                                                                         value="output_archetype_Madness" {{archetype_data["output_archetype_Madness"]}}>
+
+                            Madness</label><br>
+                        <label title="Suspend: Delay powerful spells for future turns."><input type="checkbox"
+                                                                                               name="suspend"
+                                                                                               value="output_archetype_Suspend" {{archetype_data["output_archetype_Suspend"]}}>
+
+                            Suspend</label>
+                    </div>
+                </div>
+
+                <!-- Mechanics -->
+                <div style="margin-bottom: 15px;">
+                    <button type="button" onclick="toggleSection('mechanics-section')"
+                            style="width:100%; text-align:left; padding:10px; background:#f2f2f2; border:1px solid #ccc; cursor:pointer; font-size:16px;">
+                        ▶ Mechanics
+                    </button>
+                    <div id="mechanics-section" style="display:none; padding:10px 15px;">
+
+                        <!-- Subcategory: straetegy and themes -->
+                        <div style="margin-bottom: 10px;">
+                            <button type="button" onclick="toggleSection('strategy-section')"
+                                    style="width:100%; text-align:left; padding:8px; background:#e6e6e6; border:1px solid #bbb; cursor:pointer; font-size:14px;">
+                                ▶ Strategy & Themes
+                            </button>
+                            <div id="strategy-section" style="display:none; padding:10px;">
+                                <label title="A strategy that combines elements of both aggro and control, typically playing creatures that are larger and more powerful than those in an aggro deck, and removal spells to deal with the opponent's threats."><input type="checkbox" name="mid"
+                                                       value="output_archetype_Midrange" {{archetype_data["output_archetype_Midrange"]}}>
+
+                                    Midrange</label><br>
+                                <label title="A strategy focused on gaining an advantage by disrupting the opponent's game plan and using efficient spells to gain control of the game."><input type="checkbox" name="tempo" value="output_archetype_Tempo" {{archetype_data["output_archetype_Tempo"]}}>
+
+
+                                    Tempo</label>
+                                <br><label title="A strategy focused on accelerating the production of mana to play powerful spells ahead of the curve."><input type="checkbox" name="bigmana"
+                                                        value="output_archetype_Big_Mana_Ramp" {{archetype_data["output_archetype_Big_Mana_Ramp"]}}>
+
+
+                                Big Mana (Ramp)</label>
+                                <br><label title="A strategy focused on destroying the opponent's lands to limit their ability to play spells."><input type="checkbox" name="landestruc"
+                                                        value="output_archetype_Land_Destruction" {{archetype_data["output_archetype_Land_Destruction"]}}>
+
+                                Land
+                                    Destruction</label>
+                                <br><label title="A strategy focused on putting powerful creatures from the graveyard into play."><input type="checkbox" name="reani"
+                                                       value="output_archetype_Reanimator" {{archetype_data["output_archetype_Reanimator"]}}>
+
+                                Reanimator</label>
+                                <br><label title="A strategy focused on locking the opponent out of the game by preventing them from playing spells or attacking."><input type="checkbox" name="archetypes"
+                                                        value="prison" {{archetype_data["output_archetype_Prison"]}}>
+
+                                Prison</label>
+                                <br><label title="A prison deck that uses artifacts and enchantments to create lock pieces and disrupt the opponent's game plan."><input type="checkbox" name="prison" value="output_archetype_Stax" {{archetype_data["output_archetype_Stax"]}}>
+
+                                Stax</label>
+                                <br><label title=" A strategy focused on playing a single, powerful creature and using spells to make it larger and more difficult to block."><input type="checkbox" name="voltron"
+                                                          value="output_archetype_Voltron" {{archetype_data["output_archetype_Voltron"]}}>
+
+
+                                Voltron</label>
+                                <br><label title="A strategy focused on gaining life and creating a defensive board state to protect the player from the opponent's attacks."><input type="checkbox" name="pillow"
+                                                       value="output_archetype_Pillow_Fort" {{archetype_data["output_archetype_Pillow_Fort"]}}>
+
+                                Pillow Fort</label>
+                                <br><label title="A strategy focused on sacrificing creatures to gain value and trigger powerful abilities."><input type="checkbox" name="aristo"
+                                                        value="output_archetype_Aristocrats" {{archetype_data["output_archetype_Aristocrats"]}}>
+
+                                Aristocrats</label>
+                                <br><label title="A strategy focused on playing a large number of spells and using abilities that trigger when spells are cast."><input type="checkbox" name="spellsling"
+                                                       value="output_archetype_Spellslinger" {{archetype_data["output_archetype_Spellslinger"]}}>
+
+                                Spellslinger</label>
+                                <br><label title="A strategy focused on forcing the opponent to draw cards and discard cards from their library, with the goal of making them run out of cards to draw."><input type="checkbox" name="mill"  value="output_archetype_Mill" {{archetype_data["output_archetype_Mill"]}}>
+
+                                Mill</label>
+                                <br><label title="A strategy focused on dealing small amounts of damage to the opponent repeatedly, often with small creatures or spells."><input type="checkbox" name="pinger"
+                                                      value="output_archetype_Pinger" {{archetype_data["output_archetype_Pinger"]}}>
+
+                                Pinger</label>
+                                <br><label title="A strategy focused on dealing direct damage to the opponent's life total with spells."><input type="checkbox" name="burn"  value="output_archetype_Burn" {{archetype_data["output_archetype_Burn"]}}>
+
+                                Burn</label>
+                                <br><label title="A strategy focused on playing multiple planeswalkers and using abilities that synergize with planeswalkers."><input type="checkbox" name="superfriends"
+                                                        value="output_archetype_Superfriends_Planeswalkers" {{archetype_data["output_archetype_Superfriends_Planeswalkers"]}}>
+
+                                Superfriends
+                                    (Planeswalkers)</label>
+                                <br><label title="A strategy focused on using abilities that 'blink' or temporarily remove creatures from play to gain value."><input type="checkbox" name="blick" value="output_archetype_Blink" {{archetype_data["output_archetype_Blink"]}}>
+
+                                Blink</label>
+                                <br><label title="A strategy focused on gaining life as a resource to be used for other purposes."><input type="checkbox" name="lifegain"
+                                                       value="output_archetype_Lifegain" {{archetype_data["output_archetype_Lifegain"]}}>
+
+
+                                Lifegain</label>
+                                <br><label title="A strategy focused on using the graveyard as a resource to gain value."><input type="checkbox" name="grave" value="output_archetype_Graveyard" {{archetype_data["output_archetype_Graveyard"]}}>
+
+                                Graveyard</label>
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- Subcategory: Color Identity -->
+                        <div style="margin-bottom: 10px;">
+                            <button type="button" onclick="toggleSection('color-identity-section')"
+                                    style="width:100%; text-align:left; padding:8px; background:#e6e6e6; border:1px solid #bbb; cursor:pointer; font-size:14px;">
+                                ▶ Card-Type & Color Identity
+                            </button>
+                            <div id="color-identity-section" style="display:none; padding:10px;">
+                                <label title="A strategy focused on playing powerful artifact cards and using abilities that synergize with artifacts."><input
+                                        type="checkbox"
+                                        name="artifact"
+                                        value="output_archetype_Artifacts" {{archetype_data["output_archetype_Artifacts"]}}>
+
+                                    Artifacts</label>
+                                <br><label title="A strategy focused on playing powerful enchantment cards and using abilities that synergize with enchantments."><input
+                                        type="checkbox" name="enchant"  value="output_archetype_Enchantments" {{archetype_data["output_archetype_Enchantments"]}}>
+
+                                Enchantments</label>
+                                <br><label title="A strategy focused on playing powerful planeswalker cards and using abilities that synergize with planeswalkers."><input
+                                        type="checkbox" name="planesw"  value="output_archetype_Planeswalkers" {{archetype_data["output_archetype_Planeswalkers"]}}>
+
+                                Planeswalkers</label>
+                                <br><label title=""><input type="checkbox" name="vehicl"
+                                                        value="output_archetype_Vehicles" {{archetype_data["output_archetype_Vehicles"]}}>
+
+                                Vehicles</label>
+
+                                <br><label title="A strategy focused on playing powerful land cards and using abilities that synergize with lands."><input
+                                        type="checkbox" name="lands"  value="output_archetype_Lands" {{archetype_data["output_archetype_Lands"]}}>
+
+                                Lands</label>
+                                <br><label title="A strategy that does not rely on creatures to win the game, instead using spells and abilities to control the board and deal damage."><input
+                                        type="checkbox" name="creatureless"
+                                        value="output_archetype_Creatureless_archetype" {{archetype_data["output_archetype_Creatureless_archetype"]}}>
+
+                                Creatureless</label>
+                                <br><label title="A strategy that uses cards of a single color."><input type="checkbox"
+                                                                                                    name="mono"
+                                                                                                    value="output_archetype_Mono-colored" {{archetype_data["output_archetype_Mono-colored"]}}>
+
+                                Mono-colored</label>
+                                <br><label title="A strategy that uses cards of multiple colors."><input type="checkbox"
+                                                                                                     name="multi"
+                                                                                                     value="output_archetype_Multi-colored" {{archetype_data["output_archetype_Multi-colored"]}}>
+
+                                Multi-colored</label>
+                                <br><label title="A strategy that uses cards with hybrid mana costs, which can be paid with either of two different colors."><input
+                                        type="checkbox" name="hybrid"  value="output_archetype_Hybrid" {{archetype_data["output_archetype_Hybrid"]}}>
+
+                                Hybrid</label>
+                                <br><label title="A strategy that uses cards with split mana costs, which can be paid with either of two different colors, but must be paid with one color at a time."><input
+                                        type="checkbox" name="split"  value="output_archetype_Split" {{archetype_data["output_archetype_Split"]}}>
+
+                                Split</label>
+                                <br><label title="A strategy that uses cards with colorless mana costs, which can be paid with any type of mana."><input
+                                        type="checkbox" name="colorless"
+                                         value="output_archetype_Colorless" {{archetype_data["output_archetype_Colorless"]}}>
+
+                                Colorless</label>
+
+                            </div>
+                        </div>
+                                      <!-- Subcategory: Color Identity -->
+                        <div style="margin-bottom: 10px;">
+                            <button type="button" onclick="toggleSection('tokens-section')"
+                                    style="width:100%; text-align:left; padding:8px; background:#e6e6e6; border:1px solid #bbb; cursor:pointer; font-size:14px;">
+                                ▶ Tokens & Counters
+                            </button>
+                            <div id="tokens-section" style="display:none; padding:10px;">
+                                <label title="A strategy focused on creating a large number of small creatures, often through the use of spells that create token creatures."><input type="checkbox" name="creattoken"  value="output_archetype_Creature_tokens" {{archetype_data["output_archetype_Creature_tokens"]}}>
+
+                                    Creature Tokens</label>
+
+                                <br><label title="A strategy focused on playing cards with +1/+1 counters, -1/-1 counters, or other types of counters to gain value."><input type="checkbox" name="11counters"  value="output_archetype_+1/+1_counters" {{archetype_data["output_archetype_+1/+1_counters"]}}>
+
+                                +-1/+-1Counters</label>
+                                <br><label title="A strategy focused on dealing poison damage to the opponent to give them poison counters, with the goal of poisoning them to death."><input type="checkbox" name="poisoncounter" value="output_archetype_Poison_counters" {{archetype_data["output_archetype_Poison_counters"]}}>
+
+                                Poison counters</label>
+                                <br><label title="A strategy focused on creating Clue tokens to draw cards and gain value."><input type="checkbox" name="cluetoken"  value="output_archetype_Clue_tokens" {{archetype_data["output_archetype_Clue_tokens"]}}>
+
+                                Clue tokens</label>
+                                <br><label title="A strategy focused on creating Treasure tokens to generate mana and gain value."><input type="checkbox" name="treasuretoken"  value="output_archetype_Treasure_tokens" {{archetype_data["output_archetype_Treasure_tokens"]}}>
+
+                                Treasure tokens</label>
+                                <br><label title="A strategy focused on creating Food tokens to gain life and gain value."><input type="checkbox" name="foodtoken" value="output_archetype_Food_tokens" {{archetype_data["output_archetype_Food_tokens"]}}>
+
+                                Food tokens</label>
+                                <br><label title="A strategy focused on generating and using energy counters to play powerful spells."><input type="checkbox" name="energy" value="output_archetype_Energy" {{archetype_data["output_archetype_Energy"]}}>
+
+                                Energy counters</label>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="margin-top: 20px; text-align:center;">
+                <button type="submit"
+                        style="padding: 15px 40px; background:#007bff; color:white; font-size:18px; border:none; border-radius:8px; cursor:pointer;">
+                    Submit
+                </button>
+            </div>
+        </div>
+
+        <script>
+            function toggleSection(id) {
+                const section = document.getElementById(id);
+                section.style.display = (section.style.display === "none") ? "block" : "none";
+            }
+        </script>
+    </div>
+    </div>
+            </form>
+    </div>
+     </div>

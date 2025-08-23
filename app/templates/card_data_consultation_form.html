@@ -1,0 +1,65 @@
+<div class="container mt-4">
+    <form id="searchForm" method="GET" action="/cards" class="row g-3">
+        <!-- Name -->
+        <div class="col-md-6">
+            <label for="name" class="form-label">Card Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter partial name">
+        </div>
+        <!-- Card Text -->
+        <div class="mb-3">
+            <label for="card_text" class="form-label">Partial Card Text</label>
+            <input type="text" class="form-control" id="card_text" name="card_text" placeholder="Enter partial card text">
+        </div>
+
+        <!-- Colors -->
+        <div class="col-md-6">
+            <label class="form-label d-block">Colors</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="colorW" name="colors" value="W">
+                <label class="form-check-label" for="colorW">☀️</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="colorU" name="colors" value="U">
+                <label class="form-check-label" for="colorU">💧</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="colorB" name="colors" value="B">
+                <label class="form-check-label" for="colorB">💀</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="colorR" name="colors" value="R">
+                <label class="form-check-label" for="colorR">🔥</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="colorG" name="colors" value="G">
+                <label class="form-check-label" for="colorG">🌳</label>
+            </div>
+        </div>
+
+        <!-- Card Type -->
+        <div class="col-md-6">
+            <label for="card_type" class="form-label">Card Type</label>
+            <select class="form-select" id="card_type" name="card_type">
+                <option value="">Any</option>
+                <option value="Creature">Creature</option>
+                <option value="Artifact">Artifact</option>
+                <option value="Enchantment">Enchantment</option>
+                <option value="Land">Land</option>
+                <option value="Instant">Instant</option>
+                <option value="Sorcery">Sorcery</option>
+                <option value="Planeswalker">Planeswalker</option>
+            </select>
+        </div>
+
+        <!-- Converted Mana Cost -->
+        <div class="col-md-6">
+            <label for="cmc" class="form-label">Converted Mana Cost</label>
+            <input type="number" class="form-control" id="cmc" name="cmc" placeholder="Any">
+        </div>
+
+        <!-- Submit -->
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
